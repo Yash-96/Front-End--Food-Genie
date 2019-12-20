@@ -70,7 +70,7 @@ function About(props) {
                         </div>
                     </div>
                     <div className="row row-content">
-                        <div className="col-12 d-flex align-self-start">
+                        <div className="col-12">
                             <h2>Corporate Leadership</h2>
                         </div>
                         <div className="col-12">
