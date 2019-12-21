@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom';
 
     handleSubmit(values) {
         this.toggleModal();
-        alert("Comment: " + JSON.stringify(values));
+        this.props.addComment(this.props.dish.id,values.rating,values.name,values.comment)
         //event.preventDefault();
       }
 
@@ -50,16 +50,16 @@ import { Link } from 'react-router-dom';
       {
         return (
           <div>
-          <p>{com.comment}</p>
-          <p>-- {com.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(com.date)))}</p>
+          <p>Rating: {com.rating}, Review: {com.comment}</p>
+          <p>Author: {com.author}, Date: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(com.date)))}</p>
           </div>
         );
       });
       return (
           <div>
           <Card>
+          <CardTitle>Comment</CardTitle>
               <CardBody>
-                <CardTitle>Comment</CardTitle>
                 <CardText>{cmnt}</CardText>
                 <Button outline onClick={this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Comment</Button>
               </CardBody>
@@ -108,6 +108,9 @@ render(){
                           <Col md={10}>
                           <Control.select model=".rating" id="rating" name="rating"
                               className="form-control">
+                              <option value="none" selected disabled hidden>
+                              Select Rating
+                              </option>
                               <option>1</option>
                               <option>2</option>
                               <option>3</option>
