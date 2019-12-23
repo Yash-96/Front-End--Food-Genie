@@ -5,6 +5,7 @@ import { Card, CardImg, CardText, CardBody,
     Button, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
     class Dishdetails extends Component {
       constructor(props){
@@ -76,10 +77,29 @@ render(){
     if (this.props.dish == null) {
         return (<div></div>);
     }
-  console.log(this.props.comments);
+
+  if (this.props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+  else if (this.props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+  else if (this.props.dish != null)
+  {
   const all_comment = this.Rendercomments(this.props.comments);
   const all_dishes = this.Renderdishes(this.props.dish);
-
     return (
       <div className="container">
       <div className="row">
@@ -162,6 +182,7 @@ render(){
       </div>
       </div>
   );
+}
 }
 }
 
