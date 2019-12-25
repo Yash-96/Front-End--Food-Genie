@@ -5,7 +5,10 @@ import { Card, CardImg, CardText, CardBody,
     Button, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+
 
     class Dishdetails extends Component {
       constructor(props){
@@ -25,20 +28,25 @@ import { Loading } from './LoadingComponent';
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dish.id,values.rating,values.name,values.comment)
-        //event.preventDefault();
+        this.props.postComment(this.props.dish.id, values.rating, values.name, values.comment);        //event.preventDefault();
       }
 
      Renderdishes(dish){
       return (
         <div>
+        <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
         <Card>
-            <CardImg top src={dish.image} alt={dish.name} />
+            <CardImg top src={baseUrl + dish.image} alt={dish.name} />
             <CardBody>
               <CardTitle>{dish.name}</CardTitle>
               <CardText>{dish.description}</CardText>
             </CardBody>
         </Card>
+        </FadeTransform>
         </div>
       );
     }
@@ -50,18 +58,23 @@ import { Loading } from './LoadingComponent';
       const cmnt = comments.map((com) =>
       {
         return (
+          <Fade in>
           <div>
           <p>Rating: {com.rating}, Review: {com.comment}</p>
           <p>Author: {com.author}, Date: {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(com.date)))}</p>
           </div>
+          </Fade>
         );
       });
+
       return (
           <div>
           <Card>
           <CardTitle>Comment</CardTitle>
               <CardBody>
+              <Stagger in>
                 <CardText>{cmnt}</CardText>
+              </Stagger>
                 <Button outline onClick={this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Comment</Button>
               </CardBody>
           </Card>
@@ -73,10 +86,6 @@ render(){
   const maxLength = (len) => (val) => !(val) || (val.length <= len);
   const minLength = (len) => (val) => val && (val.length >= len);
   const required = (val) => val && val.length;
-
-    if (this.props.dish == null) {
-        return (<div></div>);
-    }
 
   if (this.props.isLoading) {
             return(
