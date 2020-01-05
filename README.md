@@ -1,3 +1,5 @@
+This project explores Javascript based front-end application development, and in particular the React library and various aspects of React components. I developed a Single Page Application which allows users to reserve table, choose favorite dishes, and perform CRUD operations. I also designed and implemented stateful and stateless components along with Redux and Redux Thunk state management. The project integrates React router, controlled forms and uncontrolled forms. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
